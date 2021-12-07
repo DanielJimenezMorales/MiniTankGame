@@ -10,25 +10,25 @@ An online multiplayer tank game made in Unity by Daniel Jiménez Morales
 - UI.
 - References.
 
-## INTRODUCTION:
+### INTRODUCTION:
 __MiniTankMultiplayerGame__ is a 3D Top Down tank shooter where the player will have to drive a tank and destroy the opponent's vehicle.
 
-## GENRE:
+### GENRE:
 Top Down Shooter.
 
-## Engine:
+### Engine:
 This game is made with Unity 3D Engine.
 - Version: 2020.3.24f1 LTS
 
-## Platforms:
+### Platforms:
 The game will be available in the following platforms:
 - Windows.
 
-## Inputs:
+### Inputs:
 The game supports the following inputs:
 - Keyboard & Mouse.
 - PS4 Controller.
 
-## UI:
+### UI:
 
 ## REFERENCES:
