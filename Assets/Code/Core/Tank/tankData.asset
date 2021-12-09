@@ -12,3 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e536eab2c6b7709468be034cbc0a69ad, type: 3}
   m_Name: tankData
   m_EditorClassIdentifier: 
+  movementData:
+    movementSpeed: 5
+    rotationSpeed: 80
+    turretHeadRotationSpeed: 7
