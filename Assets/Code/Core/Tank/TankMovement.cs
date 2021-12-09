@@ -10,29 +10,58 @@ public class TankMovement : MonoBehaviour
 
     #region Variables
     [SerializeField] private float movementSpeed = 20f;
+    [SerializeField] private float rotationSpeed = 20f;
+    [SerializeField] private Transform reticleTransform = null;
+    [SerializeField] private Camera camera = null;
+    private float horizontalMovementInput = 0f;
+    private float verticalMovementInput = 0f;
     private Rigidbody rb = null;
     #endregion
 
-    void Awake()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        if (Input.GetAxisRaw("Vertical") > 0)
-        {
-            MoveTank(1);
-        }
-        else if(Input.GetAxisRaw("Vertical") < 0)
-        {
-            MoveTank(-1);
-        }
+        HandleInputs();
     }
 
-    private void MoveTank(int direction)
+    private void HandleInputs()
     {
-        Vector3 force = this.transform.forward * direction * movementSpeed;
-        rb.AddForce(force, ForceMode.Acceleration);
+        horizontalMovementInput = Input.GetAxis("Horizontal");
+        verticalMovementInput = Input.GetAxis("Vertical");
+    }
+
+    private void FixedUpdate()
+    {
+        MoveTank();
+        RotateTank();
+        HandleReticle();
+    }
+
+    private void MoveTank()
+    {
+        //Move the tank forward or backward
+        Vector3 currentMovement = this.transform.forward * verticalMovementInput * movementSpeed * Time.deltaTime;
+        rb.MovePosition(rb.position + currentMovement);
+    }
+
+    private void RotateTank()
+    {
+        float newRotation = horizontalMovementInput * rotationSpeed * Time.deltaTime;
+        Quaternion currentRotation = this.transform.rotation * Quaternion.Euler(Vector3.up * newRotation);
+        rb.MoveRotation(currentRotation);
+    }
+
+    private void HandleReticle()
+    {
+        Ray screenRay = camera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if(Physics.Raycast(screenRay, out hit))
+        {
+            reticleTransform.position = hit.point + Vector3.up * 0.1f;
+        }
     }
 }
