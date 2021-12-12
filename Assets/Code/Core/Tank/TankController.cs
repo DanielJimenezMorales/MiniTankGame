@@ -19,6 +19,8 @@ public class TankController : MonoBehaviour
     [SerializeField] private Transform shootPointTransform = null;
     [SerializeField] private AudioConsumer firingAudioConsumer = null;
     [SerializeField] private Camera tankCamera = null;
+    [SerializeField] private GameObject explosionPrefab = null;
+    [SerializeField] private GameObject tankExplosion = null;
     private Rigidbody rb = null;
     #endregion
 
@@ -31,7 +33,7 @@ public class TankController : MonoBehaviour
     private void Start()
     {
         movement = new TankMovement(rb, this.transform, tankCamera, turretHeadTransform, tankData.GetMovementData(), reticleTransform);
-        shoot = new TankShoot(shootPointTransform, tankData.GetSoundsData(), firingAudioConsumer);
+        shoot = new TankShoot(shootPointTransform, tankData.GetSoundsData(), firingAudioConsumer, explosionPrefab, tankExplosion);
     }
 
     private void Update()

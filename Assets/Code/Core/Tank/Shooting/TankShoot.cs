@@ -12,14 +12,18 @@ public class TankShoot
 
     #region Variables
     private Transform shootPointTransform = null;
+    private GameObject explosionPrefab = null;
+    private GameObject tankExplosion = null;
     private bool isAbleToShoot = true;
     #endregion
 
-    public TankShoot(Transform shootPoint, TankSoundsData sounds, AudioConsumer audioConsumer)
+    public TankShoot(Transform shootPoint, TankSoundsData sounds, AudioConsumer audioConsumer, GameObject explosion, GameObject tank)
     {
         shootPointTransform = shootPoint;
         soundsData = sounds;
         firingAudioConsumer = audioConsumer;
+        explosionPrefab = explosion;
+        tankExplosion = tank;
 
         firingAudioConsumer.Initialize();
     }
@@ -36,11 +40,13 @@ public class TankShoot
     private void Fire()
     {
         firingAudioConsumer.PlayAudio(soundsData.GetFiringSound());
+        GameObject.Instantiate(tankExplosion, shootPointTransform.position, Quaternion.identity);
         Ray bulletRay = new Ray(shootPointTransform.position, shootPointTransform.forward);
         RaycastHit hit;
         if(Physics.Raycast(bulletRay, out hit, 100f))
         {
             Debug.Log("Hit something");
+            GameObject.Instantiate(explosionPrefab, hit.point, Quaternion.identity);
         }
 
         Reload();
@@ -55,5 +61,10 @@ public class TankShoot
     {
         await Task.Delay(3000);
         isAbleToShoot = true;
+    }
+
+    private void ApplyCannonRecoil()
+    {
+
     }
 }

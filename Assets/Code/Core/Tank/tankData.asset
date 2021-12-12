@@ -16,3 +16,5 @@ MonoBehaviour:
     movementSpeed: 5
     rotationSpeed: 80
     turretHeadRotationSpeed: 7
+  soundsData:
+    firingSound: {fileID: 8300000, guid: 4cdf209d27b948d4a8998bb1bf315fb0, type: 3}
